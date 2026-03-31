@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# --- Outlaw Ninja: Bugcrowd Beast Automation ---
+# Purpose: Subdomain discovery and initial web probing
+
+TARGET=$1
+
+if [ -z "$TARGET" ]; then
+    echo "Usage: ./bugcrowd_beast.sh <domain.com>"
+    exit 1
+fi
+
+echo "[+] Starting Beast Recon on: $TARGET"
+
+# 1. Subdomain Discovery (Assumes subfinder/assetfinder installed)
+subfinder -d $TARGET -o subdomains.txt
+
+# 2. Probing for live web servers
+cat subdomains.txt | httprobe | tee live_targets.txt
+
+# 3. Initial Nmap Scan on live targets
+nmap -iL live_targets.txt -T4 -F --script vuln -oN nmap_recon.txt
+
+echo "[+] Recon Complete. Results saved to nmap_recon.txt"
