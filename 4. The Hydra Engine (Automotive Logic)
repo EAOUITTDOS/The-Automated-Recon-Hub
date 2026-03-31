@@ -1,0 +1,16 @@
+# --- Outlaw Laboratories: Hydra Engine v1.0 ---
+# Purpose: Performance calculations for 6.0L LS Swap (Chevy Colorado)
+
+def calculate_performance(hp, torque, gear_ratio):
+    # Our custom diagnostic logic for drivetrain efficiency
+    efficiency_loss = 0.15
+    wheel_hp = hp * (1 - efficiency_loss)
+    effective_torque = torque * gear_ratio
+    
+    print(f"--- Performance Report ---")
+    print(f"Estimated Wheel HP: {wheel_hp}")
+    print(f"Effective Torque at Gear: {effective_torque}")
+
+# Example usage for the 2006 Colorado project
+if __name__ == "__main__":
+    calculate_performance(hp=400, torque=400, gear_ratio=3.73)
